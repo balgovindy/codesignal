@@ -239,7 +239,9 @@ function simpleArraySum(arr) {
 /********************************************************************************************************************* */
 function avoidObstacles(inputArray) {
   inputArray.sort((a, b) => a - b);
-  var step = 1, index = 0, bool = true;
+  var step = 1,
+    index = 0,
+    bool = true;
   while (bool) {
     index += step
     if (index > inputArray[inputArray.length - 1]) return step;
@@ -254,7 +256,8 @@ function avoidObstacles(inputArray) {
 }
 /********************************************************************************************************************* */
 function avoidObstacles(arr) {
-  for (var n = 1; ; n++) if (arr.every(x => x % n)) return n;
+  for (var n = 1;; n++)
+    if (arr.every(x => x % n)) return n;
 }
 /********************************************************************************************************************* */
 function arrayChange(inputArray) {
@@ -281,7 +284,8 @@ function variableName(name) {
 }
 /********************************************************************************************************************* */
 function alphabeticShift(inputString) {
-  var result = '', charCode = 0;
+  var result = '',
+    charCode = 0;
   for (var e of inputString) {
     if (e !== 'z') {
       charCode = e.charCodeAt() + 1;
@@ -491,6 +495,7 @@ function seatsInTheater(nCols, nRows, col, row) {
 }
 /********************************************************************************************************************* */
 var str = '';
+
 function strangeCode(s, e) {
   if (s >= e - 1) {
     return str;
@@ -646,12 +651,13 @@ function isIncreasingDigitsSequence(n) {
 }
 /********************************************************************************************************************* */
 function alphabetSubsequence(s) {
-  return s.slice(1).split``.every((e, i) => e > s[i]);
+  return s.slice(1).split ``.every((e, i) => e > s[i]);
 }
 /********************************************************************************************************************* */
 function isPrime(n) {
   for (let i = 2; i < n; i++) {
-    if (n % i === 0); return false;
+    if (n % i === 0);
+    return false;
   }
   return true;
 }
@@ -685,7 +691,9 @@ function factorization(z) {
 /********************************************************************************************************************* */
 function maxYogurtCup(n, k, arr) {
   arr = arr.sort((a, b) => a - b);
-  let consume = 0; day = 1; cd = k;
+  let consume = 0;
+  day = 1;
+  cd = k;
   for (let i = 0; i < n; i++) {
     if (arr[i] >= day) {
       cd--;
@@ -699,6 +707,151 @@ function maxYogurtCup(n, k, arr) {
   return consume;
 }
 /********************************************************************************************************************* */
+(function outTime() {
+  var json = [{
+      "value": 30600,
+      "text": "Full-Day"
+    },
+    {
+      "value": 16200,
+      "text": "Half-Day"
+    },
+    {
+      "value": 41400,
+      "text": "Comp-off"
+    },
+    {
+      "value": 55800,
+      "text": "Full-day-Comp-off"
+    }
+  ];
+  currentIndex = 0;
+  var $wrapperDiv;
+
+  $(function () {
+    const wrapper = document.querySelector('#itc_wrapper');
+
+    var select = $("<select></select>").attr("id", "state").attr("name", "state").css({
+      float: 'left',
+      margin: '0px 10px'
+    })
+    $.each(json, function (index, json) {
+      select.append($("<option></option>").attr("value", json.value).text(json.text));
+    });
+    $wrapperDiv = $('<div>').attr('id', 'wrapperDiv').appendTo(wrapper);
+    $wrapperDiv.empty();
+    $text1 = $('<div>').html('<span>Time left for</span>').appendTo($wrapperDiv).css({
+      float: 'left',
+      verticalAlign: 'middle',
+      fontSize: '20px',
+      margin: '6px 0px',
+      color: 'white'
+    });
+    $wrapperDiv.append(select).css({
+      position: 'relative',
+      padding: '20px',
+      color: 'white'
+    });
+    var timeRemain = $('<div>', {
+      id: 'timeLeft'
+    }).css({
+      float: 'left',
+      verticalAlign: 'middle',
+      fontSize: '20px',
+      margin: '6px 10px',
+      color: 'white'
+    })
+    $wrapperDiv.append(timeRemain);
+    var text2 = $('<div>').html('<span>Out-time:</span>').css({
+      float: 'left',
+      verticalAlign: 'middle',
+      fontSize: '20px',
+      margin: '6px 8px',
+      color: 'white'
+    })
+    $wrapperDiv.append(text2);
+    var outTime = $('<div>').attr('id', 'userOutTime').css({
+      verticalAlign: 'middle',
+      fontSize: '20px',
+      margin: '6px 0px',
+      color: 'white'
+    });
+    $wrapperDiv.append(outTime);
+    $('#state').off().on('change', onChange);
+  })
+
+  function onChange() {
+    var newValue = $(this).val();
+    for (let i = 0; i < json.length; i++) {
+      if (json[i].value === Number(newValue)) {
+        currentIndex = i;
+        break;
+      }
+    }
+  }
+  const targetNode = document.querySelector('.total_time');
+  const observerOptions = {
+    childList: true,
+    attributes: true,
+    subtree: true
+  }
+  const obsever = new MutationObserver(getOutTime);
+  obsever.observe(targetNode, observerOptions);
+
+  function getOutTime(mutationList, observer) {
+    mutationList.forEach((mutation) => {
+      switch (mutation.type) {
+        case 'childList':
+          getTime(mutation.target.innerText);
+          break;
+        case 'attributes':
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  function getTime(time_elapsed) {
+    var timeLeft = json[currentIndex].value - timeInSecond(time_elapsed);
+    var userOutTime = timeLeft + timeInSecond(getCurrentTime());
+    $('#timeLeft').html(`<span>${timeCalculate(timeLeft)}</span>`);
+    $('#userOutTime').html(`<span>${timeCalculate(userOutTime,true)}</span>`)
+  }
+
+  function getCurrentTime() {
+    var date = new Date();
+    const [h, m, s] = [date.getHours() < 10 ? "0" + date.getHours() : date.getHours(), date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(), date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()];
+    return [h, m, s].join(':');
+  };
+
+  function timeInSecond(t) {
+    const [hr, mt, sec] = t.split(':').map(x => +x);
+    return timeInSec = hr * 3600 + mt * 60 + sec;
+  }
+
+  function timeCalculate(time, bool = false) {
+    let [a, b, c] = [Math.floor(time / 3600) % 24, Math.floor(Math.floor(time % 3600) / 60), Math.floor(Math.floor(Math.floor(time % 3600) % 60))];
+    [a, b, c] = [a < 0 ? 0 : a, b < 0 ? 0 : b, c < 0 ? 0 : c];
+    var outState = 'AM';
+    if (bool) {
+      if (a >= 12) {
+        if (a !== 12) a = a % 12;
+        outState = 'PM';
+      }
+      if (a == 0) {
+        a = 12;
+      }
+    }
+    const [lhr, lmt, lsec] = [a < 10 ? '0' + a : a, b < 10 ? '0' + b : b, c < 10 ? '0' + c : c];
+    const tempArr = [lhr, lmt, lsec].map(x => x.toString());
+    const userOutTime = tempArr.join(":");
+    if (bool) {
+      return `${userOutTime} ${outState}`;
+    }
+    return userOutTime;
+  }
+})()
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
