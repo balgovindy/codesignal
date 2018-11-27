@@ -1147,8 +1147,42 @@ var containsDuplicate = function (nums, tempObj = {}) {
   return false;
 };
 /********************************************************************************************************************* */
+var longestPalindrome = function (s, storeObj = {}) {
+  var count = 0;
+  for (let i = 0; i < s.length; i++) {
+    if (storeObj[s[i]] == 1) {
+      count += 2;
+      storeObj[s[i]] = 0;
+    } else {
+      storeObj[s[i]] = 1;
+    }
+  }
+  if (count < s.length) {
+    count++;
+  }
+  return count;
+};
 /********************************************************************************************************************* */
+var isPalindrome = function (s) {
+  return s.replace(/[^A-Za-z0-9]/g, '').toLowerCase() === [...s.replace(/[^A-Za-z0-9]/g, '').toLowerCase()].reverse().join('');
+};
 /********************************************************************************************************************* */
+var countPrimes = function (n) {
+  var isPrime = [],
+    result = 0;
+  if (n < 3) return result; // number less than 3 there in no any prime number
+  for (var i = 2; i < n; i++) {
+    if (isPrime[i] == undefined) {  // optimization i.e. proceed for only new numbers (not multiple of prime number)
+      isPrime[i] = 1;               // found prime number
+      result++;                     
+      for (var j = 2; j * i < n; j++) { // multiple of prime number need to be discard we are setting value '0' to set certain value.
+        isPrime[i * j] = 0;
+      }
+
+    }
+  }
+  return result;
+}
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
