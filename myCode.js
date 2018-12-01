@@ -1172,9 +1172,9 @@ var countPrimes = function (n) {
     result = 0;
   if (n < 3) return result; // number less than 3 there in no any prime number
   for (var i = 2; i < n; i++) {
-    if (isPrime[i] == undefined) {  // optimization i.e. proceed for only new numbers (not multiple of prime number)
-      isPrime[i] = 1;               // found prime number
-      result++;                     
+    if (isPrime[i] == undefined) { // optimization i.e. proceed for only new numbers (not multiple of prime number)
+      isPrime[i] = 1; // found prime number
+      result++;
       for (var j = 2; j * i < n; j++) { // multiple of prime number need to be discard we are setting value '0' to set certain value.
         isPrime[i * j] = 0;
       }
@@ -1184,10 +1184,55 @@ var countPrimes = function (n) {
   return result;
 }
 /********************************************************************************************************************* */
+var checkPossibility = function (sequence) {
+  var c = 0;
+  for (var i = 0; i < sequence.length; i++) {
+    if (sequence[i] < sequence[i - 1]) {
+      c++;
+      if (c > 1) return false; // check for same number not repeated more than twice consequintely
+      if (sequence[i] <= sequence[i - 2] && sequence[i + 1] <= sequence[i - 1]) return false;
+    }
+  }
+  return true;
+};
 /********************************************************************************************************************* */
+var reverseBits = function (n, maxBit = 32) {
+  n = [...n.toString(2)].reverse();
+  var len = maxBit - n.length;
+  for (let i = 0; i < len; i++) {
+    n.push('0');
+  }
+  return parseInt(n.join(''), 2);
+};
 /********************************************************************************************************************* */
+var rotate = function (nums, k) {
+  var rmEl;
+  for (let i = 0; i < k; i++) {
+    rmEl = nums.pop();
+    nums.unshift(rmEl);
+  }
+};
+var rotate = function (nums, k) {
+  var rmArr = nums.splice(nums.length - k);
+  nums.unshift(...rmArr)
+};
 /********************************************************************************************************************* */
+var flipAndInvertImage = function (A) {
+  for (var i = 0; i < A.length; i++) {
+    A[i].reverse();
+    for (var j = 0; j < A[0].length; j++) {
+      A[i][j] = A[i][j] ? 0 : 1;
+    }
+  }
+  return A;
+};
+var flipAndInvertImage = function (A) {
+  return A.map(arr => arr.reverse()).map(arr => arr.map(e => e ? 0 : 1));
+};
 /********************************************************************************************************************* */
+var peakIndexInMountainArray = function (A) {
+  return A.indexOf(Math.max(...A))
+};
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
