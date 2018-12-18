@@ -256,7 +256,7 @@ function avoidObstacles(inputArray) {
 }
 /********************************************************************************************************************* */
 function avoidObstacles(arr) {
-  for (var n = 1;; n++)
+  for (var n = 1; ; n++)
     if (arr.every(x => x % n)) return n;
 }
 /********************************************************************************************************************* */
@@ -651,7 +651,7 @@ function isIncreasingDigitsSequence(n) {
 }
 /********************************************************************************************************************* */
 function alphabetSubsequence(s) {
-  return s.slice(1).split ``.every((e, i) => e > s[i]);
+  return s.slice(1).split``.every((e, i) => e > s[i]);
 }
 /********************************************************************************************************************* */
 function isPrime(n) {
@@ -708,21 +708,21 @@ function maxYogurtCup(n, k, arr) {
 /********************************************************************************************************************* */
 (function outTime() {
   var json = [{
-      "value": 30600,
-      "text": "Full-Day"
-    },
-    {
-      "value": 16200,
-      "text": "Half-Day"
-    },
-    {
-      "value": 41400,
-      "text": "Comp-off"
-    },
-    {
-      "value": 55800,
-      "text": "Full-day-Comp-off"
-    }
+    "value": 30600,
+    "text": "Full-Day"
+  },
+  {
+    "value": 16200,
+    "text": "Half-Day"
+  },
+  {
+    "value": 41400,
+    "text": "Comp-off"
+  },
+  {
+    "value": 55800,
+    "text": "Full-day-Comp-off"
+  }
   ];
   currentIndex = 0;
   var $wrapperDiv;
@@ -815,7 +815,7 @@ function maxYogurtCup(n, k, arr) {
     var timeLeft = json[currentIndex].value - timeInSecond(time_elapsed);
     var userOutTime = timeLeft + timeInSecond(getCurrentTime());
     $('#timeLeft').html(`<span>${timeCalculate(timeLeft)}</span>`);
-    $('#userOutTime').html(`<span>${timeCalculate(userOutTime,true)}</span>`)
+    $('#userOutTime').html(`<span>${timeCalculate(userOutTime, true)}</span>`)
   }
 
   function getCurrentTime() {
@@ -1390,7 +1390,7 @@ var addDigits = function (num) {
 }
 var addDigits = function (num) {
   for (; num.toString().length > 1;) {
-    num = num.toString().split ``.map(x => +x).reduce((a, c) => a + c);
+    num = num.toString().split``.map(x => +x).reduce((a, c) => a + c);
   }
   return num;
 };
@@ -1443,7 +1443,7 @@ var uncommonFromSentences = function (A, B) {
   var storeObj = {}
   var concateStr = `${A} ${B}`;
   var resultArr = [];
-  concateStr = concateStr.split ` `;
+  concateStr = concateStr.split` `;
   concateStr.forEach(e => {
     storeObj[e] = (storeObj[e] || 0) + 1;
   })
@@ -1484,7 +1484,7 @@ var isPowerOfTwo = function (n) {
 /********************************************************************************************************************* */
 var reverseOnlyLetters = function (S) {
   if (!/[A-Za-z]/.test(S)) return S;
-  var reverseStr = S.match(/[A-Za-z]+/g).join ``.split ``.reverse().join ``;
+  var reverseStr = S.match(/[A-Za-z]+/g).join``.split``.reverse().join``;
   var str = ''
   for (var i = 0, j = 0; i < S.length; i++) {
     if (/[A-Za-z]/.test(S[i])) {
@@ -1534,7 +1534,7 @@ var findTheDifference = function (s, t) {
 };
 /********************************************************************************************************************* */
 var lengthOfLastWord = function (s) {
-  s = s.trim().split ` `;
+  s = s.trim().split` `;
   return s[s.length - 1].length;
 };
 /********************************************************************************************************************* */
@@ -1543,7 +1543,7 @@ var projectionArea = function (grid) {
   var emptyGrid = 0;
   var [xy, yz, xz] = [0, 0, 0];
   var tempArr;
-  for (var i = 0, l = 0; i < grid.length; i++, l++) {
+  for (var i = 0, l = 0; i < grid.length; i++ , l++) {
     tempArr = [];
     for (var k = 0; k < grid.length; k++) {
       tempArr.push(grid[k][l])
@@ -1644,7 +1644,7 @@ var removeElement = function (nums, val) {
 /********************************************************************************************************************* */
 var reverseWords = function (str) {
   str = str.replace(/ +/g, ' ').trim();
-  return str.split ` `.reverse().join ` `;
+  return str.split` `.reverse().join` `;
 };
 /********************************************************************************************************************* */
 var isPerfectSquare = function (num) {
@@ -1682,9 +1682,18 @@ function replaceAllDigitsRegExp(input) {
 }
 /********************************************************************************************************************* */
 function evenDigitsOnly(n) {
-  return n.toString().split ``.every(x => x % 2 == 0);
+  return n.toString().split``.every(x => x % 2 == 0);
 }
 /********************************************************************************************************************* */
+var detectCapitalUse = function (word) {
+  var isLowercase = /[a-z]/.test(word[0]);
+  if (isLowercase) {
+    return word.split``.every(x => /[a-z]/.test(x));
+  } else {
+    var tempStr = word.slice(1);
+    return tempStr.split``.every(x => /[a-z]/.test(x)) || tempStr.split``.every(x => /[A-Z]/.test(x));
+  }
+};
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
