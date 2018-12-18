@@ -1474,6 +1474,14 @@ var isPowerOfThree = function (n) {
   return false;
 }
 /********************************************************************************************************************* */
+var isPowerOfTwo = function (n) {
+  if (n == 0) return false; // avoid recurssive loop
+  while (n % 2 === 0) {
+    n /= 2;
+  }
+  return n === 1;
+};
+/********************************************************************************************************************* */
 var reverseOnlyLetters = function (S) {
   if (!/[A-Za-z]/.test(S)) return S;
   var reverseStr = S.match(/[A-Za-z]+/g).join ``.split ``.reverse().join ``;
@@ -1530,20 +1538,152 @@ var lengthOfLastWord = function (s) {
   return s[s.length - 1].length;
 };
 /********************************************************************************************************************* */
+var projectionArea = function (grid) {
+  var gridSize = grid.length ** 2;
+  var emptyGrid = 0;
+  var [xy, yz, xz] = [0, 0, 0];
+  var tempArr;
+  for (var i = 0, l = 0; i < grid.length; i++, l++) {
+    tempArr = [];
+    for (var k = 0; k < grid.length; k++) {
+      tempArr.push(grid[k][l])
+    }
+    yz += Math.max(...tempArr);
+    xz += Math.max(...grid[i]);
+    for (var j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] == 0) emptyGrid++;
+    }
+  }
+  xy = gridSize - emptyGrid;
+  return xy + yz + xz;
+};
 /********************************************************************************************************************* */
+var maxArea = function (height) {
+  var l = 0,
+    r = height.length - 1,
+    max = 0,
+    h, w;
+
+  while (l < r) {
+    h = Math.min(height[l], height[r]);
+    w = r - l;
+    max = Math.max(max, h * w);
+    if (height[l] < height[r]) {
+      l++;
+    } else {
+      r--;
+    }
+  }
+  return max;
+};
 /********************************************************************************************************************* */
+var checkRecord = function (s) {
+  var absent = /A/.test(s) ? s.match(/A/g).length : 0;
+  var lateValid = true;
+  for (var i = 0; i < s.length; i++) {
+    if (s[i] = 'L') {
+      if (s[i] == 'L' && s[i + 1] == 'L' && s[i + 2] == 'L') lateValid = false;
+    }
+  }
+  return lateValid && (absent < 2);
+};
 /********************************************************************************************************************* */
+var findMaxConsecutiveOnes = function (nums) {
+  var storeObj = {},
+    key = 1;
+  nums.forEach(e => {
+    if (e === 0) {
+      key++;
+    } else {
+      storeObj[key] = (storeObj[key] || 0) + 1;
+    }
+  })
+  return Object.keys(storeObj).length > 0 ? Math.max(...Object.values(storeObj)) : 0
+};
 /********************************************************************************************************************* */
+var findDuplicates = function (nums, obj = {}) {
+  var tempArr = [];
+  nums.forEach(e => {
+    obj[e] = (obj[e] || 0) + 1
+  })
+  Object.keys(obj).forEach(e => {
+    if (obj[e] > 1) {
+      tempArr.push(+e)
+    }
+  })
+  return tempArr;
+};
+
+var findDuplicates = function (nums, obj = {}) {
+  var tempArr = [];
+  nums.forEach(e => {
+    if (obj[e]) {
+      tempArr.push(e);
+    } else {
+      obj[e] = 1;
+    }
+  })
+  return tempArr;
+};
 /********************************************************************************************************************* */
+var myPow = function (x, n) {
+  return x ** n;
+};
 /********************************************************************************************************************* */
+var singleNonDuplicate = function (nums) {
+  for (var i = 0; i < nums.length; i += 2) {
+    if (nums[i] !== nums[i + 1]) return nums[i];
+  }
+};
 /********************************************************************************************************************* */
+var removeElement = function (nums, val) {
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (nums[i] == val) nums.splice(i, 1);
+  }
+};
 /********************************************************************************************************************* */
+var reverseWords = function (str) {
+  str = str.replace(/ +/g, ' ').trim();
+  return str.split ` `.reverse().join ` `;
+};
 /********************************************************************************************************************* */
+var isPerfectSquare = function (num) {
+  return Number.isInteger(num ** 0.5);
+};
 /********************************************************************************************************************* */
+function gcdEuclid(a, b) {
+  if (!a) {
+    return b;
+  }
+  return gcdEuclid(b % a, a);
+}
 /********************************************************************************************************************* */
+function isDiagonalMatrix(matrix) {
+  for (var i = 0; i < matrix.length; i++) {
+    for (var j = 0; j < matrix.length; j++) {
+      if (i !== j && matrix[i][j] !== 0) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
 /********************************************************************************************************************* */
+function arraySumAdjacentDifference(inputArray) {
+  var tempArr = [];
+  for (let i = inputArray.length - 1; i >= 1; i--) {
+    tempArr.push(Math.abs(inputArray[i] - inputArray[i - 1]));
+  }
+  return tempArr.reduce((a, c) => a + c);
+}
 /********************************************************************************************************************* */
+function replaceAllDigitsRegExp(input) {
+  return input.replace(/\d/g, '#');
+}
 /********************************************************************************************************************* */
+function evenDigitsOnly(n) {
+  return n.toString().split ``.every(x => x % 2 == 0);
+}
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
