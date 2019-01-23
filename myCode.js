@@ -1695,10 +1695,186 @@ var detectCapitalUse = function (word) {
   }
 };
 /********************************************************************************************************************* */
+var generate = function (numRows) {
+  var tempArr = new Array(numRows).fill(0).map(() => new Array())
+  for (var i = 0; i < numRows; i++) {
+    tempArr[i][0] = 1;
+    tempArr[i][i] = 1;
+  }
+  for (i = 2; i < tempArr.length; i++) {
+    for (var j = 1; j < tempArr[i].length - 1; j++) {
+      tempArr[i][j] = tempArr[i - 1][j - 1] + tempArr[i - 1][j]
+    }
+  }
+  return tempArr;
+};
 /********************************************************************************************************************* */
+var maxProfit = function (prices) {
+  let lowestPrice = Infinity;
+  let maxProfit = 0;
+  for (let i = 0; i < prices.length; i++) {
+    const currentPrice = prices[i];
+    if (currentPrice < lowestPrice) {
+      lowestPrice = currentPrice;
+    } else if (currentPrice - lowestPrice > maxProfit) {
+      maxProfit = currentPrice - lowestPrice;
+    }
+  }
+  return maxProfit;
+}
 /********************************************************************************************************************* */
+var romanToInt = function (s) {
+  var storeObj = {
+    'I': 1,
+    'V': 5,
+    'X': 10,
+    'L': 50,
+    'C': 100,
+    'D': 500,
+    'M': 1000
+  }
+  for (var i = 0, result = 0; i < s.length; i++) {
+    result += storeObj[s[i]] < storeObj[s[i + 1]] ? -storeObj[s[i]] : storeObj[s[i]];
+  }
+  return result;
+};
 /********************************************************************************************************************* */
+var strStr = function (haystack, needle) {
+  if (!needle.length) return 0;
+  return !!haystack.match(needle) ? haystack.match(needle).index : -1;
+};
 /********************************************************************************************************************* */
+var isValid = function (s) {
+  var count = s.length
+  while (count > 1) {
+    s = s.replace(/\[\]|\{\}|\(\)/g, '');
+    count -= 2;
+  }
+  return s === '';
+};
+/********************************************************************************************************************* */
+var removeDuplicates = function (nums) {
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (nums[i] == nums[i - 1]) nums.splice(i, 1);
+  }
+  return nums.length;
+};
+/********************************************************************************************************************* */
+var repeatedNTimes = function (A) {
+  let N = A.length / 2;
+  var storeObj = {};
+  var result;
+  A.forEach(function (e) {
+    storeObj[e] = (storeObj[e] || 0) + 1;
+  });
+  Object.keys(storeObj).forEach(function (e) {
+    if (storeObj[e] == N) result = e;
+  })
+  return result;
+};
+/********************************************************************************************************************* */
+var maxWidthRamp = function (A) {
+  var min, max, res = 0;
+  for (let j = A.length - 1; j >= 0; j--) {
+    for (let i = 0; i < A.length; i++) {
+      if (A[i] <= A[j]) {
+        min = i;
+        max = j;
+        res = max - min > res ? max - min : res;
+        break;
+      }
+    }
+  }
+  return res;
+};
+/********************************************************************************************************************* */
+var plusOne = function (digits) {
+  var carry = 0
+  for (let i = digits.length - 1; i > -1; i--) {
+    digits[i] += 1;
+    if (digits[i] < 10) {
+      carry = 0;
+      break;
+    } else {
+      carry = 1;
+      digits[i] = 0;
+    }
+
+  }
+  if (carry) digits.unshift(carry)
+  return digits;
+};
+/********************************************************************************************************************* */
+var pivotIndex = function (nums) {
+  var pIndex = -1;
+  var leftArr = [], rightArr = [];
+  for (let i = 0; i < nums.length; i++) {
+    leftArr = nums.slice(0, i);
+    rightArr = nums.slice(i + 1);
+    if (leftArr.reduce((a, c) => a + c, 0) == rightArr.reduce((a, c) => a + c, 0)) {
+      pIndex = i;
+      break;
+    }
+  }
+  return pIndex;
+};
+/********************************************************************************************************************* */
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) return false;
+  for (let i = 0; i < s.length; i++) {
+    if (!t.includes(s[i])) return false;
+    t = t.replace(s[i], ``);
+  }
+  return true;
+};
+var isAnagram = function (s, t) {
+  if (s.length !== t.length) return false;
+  let sObj = {}, lObj = {};
+  for (let i = 0; i < s.length; i++) {
+    sObj[s[i]] = (sObj[s[i]] || 0) + 1;
+    lObj[t[i]] = (lObj[t[i]] || 0) + 1;
+  }
+  for (key in sObj) {
+    if (sObj[key] !== lObj[key]) return false;
+  }
+  return true;
+};
+/********************************************************************************************************************* */
+var productExceptSelf = function (nums) {
+  var tempArr = [];
+  for (let i = 0; i < nums.length; i++) {
+    tempArr[i] = 1;
+    for (let j = 0; j < nums.length; j++) {
+      if (i !== j) {
+        tempArr[i] *= nums[j]
+      }
+    }
+  }
+  return tempArr;
+};
+/********************************************************************************************************************* */
+var coinChange = function (coins, amount) {
+  coins = coins.sort((a, b) => b - a);
+  let cnt = 0;
+  let i = 0;
+  while (i < coins.length) {
+    if (coins[i] <= amount && amount > 0) {
+      cnt++;
+      amount -= coins[i];
+    } else {
+      i++;
+    }
+  }
+  return amount !== 0 ? -1 : cnt;
+};
+/********************************************************************************************************************* */
+function antiHrFormate(time = '15:05:30') {
+  const hour = +time.substr(0, 2);
+  let hr = (hour % 12) || 12;
+  hr = hr < 10 ? `0${hr}` : hr;
+  const state = hour < 12 ? 'AM' : 'PM';
+  return `${hr}${time.substr(2, 6)} ${state}`;
+}
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
