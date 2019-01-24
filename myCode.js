@@ -1876,10 +1876,55 @@ function antiHrFormate(time = '15:05:30') {
   return `${hr}${time.substr(2, 6)} ${state}`;
 }
 /********************************************************************************************************************* */
+function isArithmeticProgression(sequence) {
+
+  var difference = sequence[1] - sequence[0];
+  for (var i = 2; i < sequence.length; i++) {
+    if (sequence[i] - sequence[i - 1] !== difference) {
+      return false;
+    }
+  }
+  return true;
+}
 /********************************************************************************************************************* */
+function allLongestStrings(inputArray) {
+  var answer = [inputArray[0]];
+  for (var i = 1; i < inputArray.length; i++) {
+    if (inputArray[i].length === answer[0].length) {
+      answer.push(inputArray[i]);
+    }
+    if (inputArray[i].length > answer[0].length) {
+      answer = [inputArray[i]];
+    }
+  }
+  return answer;
+}
+
 /********************************************************************************************************************* */
+function properOrImproper(a) {
+  if (Math.abs(a[0] / a[1]) < 1) {
+    return 'Proper';
+  }
+  return 'Improper';
+}
 /********************************************************************************************************************* */
+function fullName(first, last) {
+  return `${first} ${last}`
+}
 /********************************************************************************************************************* */
+function rightTriangle(sides) {
+  var sqr = function (value) {
+    return value * value;
+  }
+  var compareNumbers = function (a, b) {
+    return a - b;
+  }
+  sides.sort(compareNumbers);
+  if (sqr(sides[0]) + sqr(sides[1]) === sqr(sides[2])) {
+    return true;
+  }
+  return false;
+}
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
