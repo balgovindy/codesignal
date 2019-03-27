@@ -1,3 +1,35 @@
+/**************************************************Some Important Question *************************************** */
+(function () {
+  var greeting = function () {
+    return 'Hello';
+  };
+  function greeting() {
+    return 'Hi';
+  }
+  console.log(greeting()); // 'Hello'
+})()
+
+function add() {
+  var obj1 = {
+    a: 5,
+    b: 7,
+    add: function () {
+      console.log(this); // {a: 5, b: 7, add: ƒ}
+      return this.a + this.b;
+    }
+  }
+
+  var obj2 = {
+    a: 5,
+    b: 7,
+    add: () => {
+      console.log(this);  // window
+      return this.a + this.b;
+    }
+  }
+  console.log(obj1.add()); // 12
+  console.log(obj2.add()); // NaN
+}
 /****************************************************************************************************************** */
 // only square
 function checkForSum(a) {
@@ -1966,10 +1998,46 @@ function sumOfMultiples(n, k) {
 }
 
 /********************************************************************************************************************* */
+function mixedFractionToImproper(a) {
+  return [a[0] * a[2] + a[1], a[2]];
+}
+
 /********************************************************************************************************************* */
+function halvingSum(n) {
+  var sum = n;
+  while (n > 1) {
+    n = Math.floor(n / 2);
+    sum += n;
+  }
+  return sum;
+}
 /********************************************************************************************************************* */
+function maximalEven(inputArray) {
+  var answer = 0;
+  for (var i = 0; i < inputArray.length; i++) {
+    if (inputArray[i] % 2 === 0 && inputArray[i] > answer) {
+      answer = inputArray[i];
+    }
+  }
+  return answer;
+}
 /********************************************************************************************************************* */
+function checkIncreasingSequence(seq) {
+  for (let i = seq.length - 1; i > 0; i--) {
+    if (seq[i] <= seq[i - 1]) return false;
+  }
+  return true;
+}
+
 /********************************************************************************************************************* */
+var isToeplitzMatrix = function (matrix) {
+  for (var i = 0; i < matrix.length - 1; i++) {
+    for (var j = 0; j < matrix[0].length - 1; j++) {
+      if (matrix[i][j] !== matrix[i + 1][j + 1]) return false;
+    }
+  }
+  return true;
+};
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
