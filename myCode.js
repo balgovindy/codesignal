@@ -2039,14 +2039,6 @@ var isToeplitzMatrix = function (matrix) {
   return true;
 };
 /********************************************************************************************************************* */
-var fib = function (N) {
-  var fibs = [0, 1];
-  for (var i = 2; i <= N; i++) {
-    fibs.push(fibs[i - 1] + fibs[i - 2]);
-  }
-  return fibs[N];
-};
-/********************************************************************************************************************* */
 var generate = function (numRows) {
   const resultArr = new Array(numRows).fill(0).map(() => new Array());
   for (let i = 0; i < resultArr.length; i++) {
@@ -2068,15 +2060,118 @@ var sortedSquares = function (A) {
   return A.map(x => x < 0 ? x * -1 : x).sort((a, b) => a - b).map(x => x * x);
 };
 /********************************************************************************************************************* */
+var commonChars = function (A) {
+  const arrLength = A.length;
+  let temp = 0
+  const res = [];
+  for (let i of A[0]) {
+    for (let j = 1; j < arrLength; j++) {
+      if (A[j].includes(i)) {
+        A[j] = A[j].replace(i, '')
+        temp++;
+      }
+    }
+    if (temp === arrLength - 1) {
+      res.push(i)
+    }
+    temp = 0;
+  }
+  return res;
+};
 /********************************************************************************************************************* */
+var addStrings = function (num1, num2) {
+  let carry = 0;
+  let sum = '';
+  if (num2.length > num1.length) {
+    let temp = num1;
+    num1 = num2;
+    num2 = temp;
+  }
+
+  for (let i = 0; i < num1.length; i++) {
+    let a = parseInt(num1.substr(num1.length - 1 - i, 1));
+    let b = parseInt(num2.substr(num2.length - 1 - i, 1));
+
+    b = (num2.length - 1 - i) > -1 ? b : 0;
+    let _sum = (a + b + carry).toString();
+    let tempsum = _sum.length > 1 ? _sum.substr(1, 1) : _sum.substr(0, 1);
+    carry = _sum.length > 1 ? Number(_sum.substr(0, 1)) : 0;
+    sum = i === num1.length - 1 && carry > 0 ? sum + tempsum + carry.toString() : sum + tempsum;
+  }
+  return [...sum].reverse``.join``;
+};
 /********************************************************************************************************************* */
+function appleBoxes(k) {
+  var red = 0;
+  var yellow = 0;
+  for (let i = 1; i <= k; i++) {
+    if (i % 2) {
+      yellow += (i * i);
+    } else {
+      red += (i * i);
+    }
+  }
+  return red - yellow;
+}
 /********************************************************************************************************************* */
+function mutateTheArray(n, a) {
+  var b = [...a];
+  b[-1] = 0;
+  b.push(0);
+  for (let i = 0; i < n; i++) {
+    a[i] = b[i - 1] + b[i] + b[i + 1];
+  }
+  return a;
+}
 /********************************************************************************************************************* */
+function digitSum(n) {
+  return [...n.toString()].map(x => +x).reduce((a, c) => a + c)
+}
 /********************************************************************************************************************* */
+function properNounCorrection(noun) {
+  let temp = noun.toLowerCase().slice(1);
+  return noun[0].toUpperCase() + temp;
+}
 /********************************************************************************************************************* */
+function integerToStringOfFixedWidth(number, width) {
+  number = String(number);
+  if (number.length === width) return number;
+  if (number.length > width) return number.slice(number.length - width);
+  if (number.length < width) {
+    var temp = width - number.length;
+    number = [...number]
+    for (let i = 0; i < temp; i++) {
+      number.unshift('0');
+    }
+    return number.join``;
+  }
+}
 /********************************************************************************************************************* */
+function kthDigit(n, k) {
+  n = n.toString();
+  if (n.length < k) return -1;
+  return Number(n[k - 1]);
+}
 /********************************************************************************************************************* */
+function gcdNaive(a, b) {
+
+  var gcd = 1;
+  for (var divisor = 2; divisor <= Math.min(a, b); divisor++) {
+    if (a % divisor === 0 && b % divisor === 0) {
+      gcd = divisor;
+    }
+  }
+
+  return gcd;
+}
 /********************************************************************************************************************* */
+function sumOfCubes(n) {
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result += (i ** 3)
+  }
+  return result;
+}
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
 /********************************************************************************************************************* */
